@@ -26,7 +26,7 @@ def test_files(host):
 
 
 def test_service(host):
-    s = host.run("sudo launchctl list cloudalchemy.mxcl.node_exporter")
+    s = host.run("sudo launchctl list devops37.mxcl.node_exporter")
     assert s.succeeded
 
 

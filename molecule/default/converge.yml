@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Ensure ss command installed
+      ansible.builtin.package:
+        name: iproute
+        state: present
+      when:
+        - ansible_os_family | lower == "redhat"
+    - name: Include devops37.node_exporter
+      include_role:
+        name: "devops37.node_exporter"

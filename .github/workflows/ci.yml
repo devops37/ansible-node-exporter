@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   lint:
@@ -26,8 +26,8 @@ jobs:
         run: |
           yamllint .
 
-  molecule:
-    name: Molecule
+  molecule-on-macos:
+    name: Molecule on MacOS
     runs-on: macos-12
     strategy:
       fail-fast: false
@@ -54,3 +54,37 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           OBJC_DISABLE_INITIALIZE_FORK_SAFETY: 'YES'
+
+  molecule-on-linux:
+    name: Molecule on Linux
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - rockylinux8
+          - centos7
+          - ubuntu2004
+          - debian11
+          - fedora35
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v2
+
+      - name: Install a default Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install ansible
+        run: pip3 install ansible molecule
+
+      - name: Set up the test environment
+        run: |
+          pip3 install -r test-requirements.txt
+
+      - name: Run Molecule tests.
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}

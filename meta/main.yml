@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: cloudalchemy
+  author: devops37
   role_name: node_exporter
   description: Prometheus Node Exporter
   license: MIT

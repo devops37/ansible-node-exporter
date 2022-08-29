@@ -46,7 +46,7 @@
 - name: Ensure Node Exporter is started
   become: true
   community.general.launchd:
-    name: cloudalchemy.mxcl.node_exporter
+    name: devops37.mxcl.node_exporter
     state: started
   changed_when: false
   when:

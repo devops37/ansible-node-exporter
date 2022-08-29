@@ -3,7 +3,7 @@
   hosts: all
   any_errors_fatal: true
   roles:
-    - cloudalchemy.node_exporter
+    - devops37.node_exporter
   pre_tasks:
     - name: Create node_exporter cert dir
       file:
